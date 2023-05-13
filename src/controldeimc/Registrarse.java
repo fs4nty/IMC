@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class Registrarse extends javax.swing.JFrame {
@@ -53,6 +55,11 @@ public class Registrarse extends javax.swing.JFrame {
         jLabel1.setText("-REGISTRO-");
 
         txtApellido.setBorder(null);
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
 
         etiNombre.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         etiNombre.setForeground(new java.awt.Color(255, 255, 255));
@@ -63,6 +70,11 @@ public class Registrarse extends javax.swing.JFrame {
         etiApellido.setText("Apellido:");
 
         txtNombre.setBorder(null);
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         txtEmail.setBorder(null);
 
@@ -207,20 +219,22 @@ public class Registrarse extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "DIGITE TODOS LOS CAMPOS "
                     + "PARA REGISTRAR");
         } else {
-
-            if (pass.length() >= 6) {
+            if (pass.length() < 6) {
+                JOptionPane.showMessageDialog(null, "La contraseña debe tener un minimo de 6 caracteres");
+            } else if (validarEmail(txtEmail.getText())) {
                 registrarUsuario();
                 Logearse win = new Logearse();
                 win.setLocationRelativeTo(null);
                 win.setTitle("IMC");
                 win.setVisible(true);
-
                 this.dispose();
+                
             } else {
-                JOptionPane.showMessageDialog(null, "La contraseña debe tener un minimo de 6 caracteres.");
+                JOptionPane.showMessageDialog(null, "El email debe ser valido.");
             }
 
         }
+        
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -256,6 +270,20 @@ public class Registrarse extends javax.swing.JFrame {
         jButton2.setForeground(Color.white);
     }//GEN-LAST:event_jButton2MouseExited
 
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char c = evt.getKeyChar();
+
+        if (c < 'a' || c > 'z')
+            evt.consume();
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        char c = evt.getKeyChar();
+
+        if (c < 'a' || c > 'z')
+            evt.consume();
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
     public void registrarUsuario() {
 
         String pass = String.valueOf(txtContraseña.getPassword());
@@ -274,6 +302,12 @@ public class Registrarse extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error de registro." + e.getMessage());
         }
+    }
+
+    public boolean validarEmail(String email) {
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher mather = pattern.matcher(email);
+        return mather.find();
     }
 
     /**

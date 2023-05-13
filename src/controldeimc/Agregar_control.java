@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -47,9 +48,10 @@ public class Agregar_control extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         LabelResultRR = new javax.swing.JLabel();
         btnCalcularIMC1 = new javax.swing.JButton();
-        txtFecha = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtAlturaR = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        txtFecha = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -112,13 +114,6 @@ public class Agregar_control extends javax.swing.JFrame {
             }
         });
 
-        txtFecha.setBorder(null);
-        txtFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaActionPerformed(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("ESCOJA SU SEXO :");
@@ -127,6 +122,25 @@ public class Agregar_control extends javax.swing.JFrame {
         txtAlturaR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAlturaRActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("ATRAS");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton1MouseExited(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -153,8 +167,8 @@ public class Agregar_control extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtPesoR)
                                     .addComponent(sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtFecha)
-                                    .addComponent(txtAlturaR)))
+                                    .addComponent(txtAlturaR)
+                                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(43, 43, 43)
@@ -162,8 +176,13 @@ public class Agregar_control extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(193, 193, 193))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(193, 193, 193))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,15 +203,17 @@ public class Agregar_control extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelResultRR, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(19, 19, 19)
                 .addComponent(btnCalcularIMC1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
+                .addGap(28, 28, 28)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -217,15 +238,18 @@ public class Agregar_control extends javax.swing.JFrame {
     }//GEN-LAST:event_sexoActionPerformed
 
     private void btnCalcularIMC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularIMC1ActionPerformed
+//        Date fecha = new Date();
+//        fecha = txtFecha.getDate();
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//        String fechaFormateada = sdf.format(fecha);
 
-        if (txtAlturaR.getText().isEmpty() || txtPesoR.getText().isEmpty() || txtFecha.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "DIGITE TODOS LOS CAMPOS ");
+        if (txtAlturaR.getText().isEmpty() || txtPesoR.getText().isEmpty() || txtFecha.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "LLENE TODOS LOS CAMPOS ");
         } else {
             double peso = Double.parseDouble(txtPesoR.getText());
 
             double altura = Double.parseDouble(txtAlturaR.getText());
 
-            String fecha = txtFecha.getText();
             double resultado = peso / (altura * altura);
 
             LabelResultRR.setText(String.valueOf(resultado));
@@ -251,11 +275,6 @@ public class Agregar_control extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCalcularIMC1ActionPerformed
 
-    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
-        SimpleDateFormat formateadorFecha = new SimpleDateFormat("dd/MM/yyyy");
-
-    }//GEN-LAST:event_txtFechaActionPerformed
-
     private void txtAlturaRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlturaRActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAlturaRActionPerformed
@@ -270,10 +289,33 @@ public class Agregar_control extends javax.swing.JFrame {
         btnCalcularIMC1.setForeground(Color.white);
     }//GEN-LAST:event_btnCalcularIMC1MouseExited
 
-    public void registrarControl() {
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        jButton1.setBackground(Color.white);
+        jButton1.setForeground(Color.black);
+    }//GEN-LAST:event_jButton1MouseEntered
 
+    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+        jButton1.setBackground(Color.black);
+        jButton1.setForeground(Color.white);
+    }//GEN-LAST:event_jButton1MouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Seguimiento s = new Seguimiento();
+        s.setLocationRelativeTo(null);
+        s.setTitle("IMC");
+        s.idUser = idUser;
+        s.nombreU1.setText(nombre);
+        s.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void registrarControl() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date fecha = new Date();
+        fecha = txtFecha.getDate();
         double peso = Double.parseDouble(txtPesoR.getText());
         double altura = Double.parseDouble(txtAlturaR.getText());
+        String fechaFormateada = sdf.format(fecha);
         double resultado = peso / (altura * altura);
         String resultadoS = String.valueOf(resultado);
         String SQL = "insert into control (fecha, resultado, iduser) values(?,?,?)";
@@ -281,7 +323,7 @@ public class Agregar_control extends javax.swing.JFrame {
         try {
 
             PreparedStatement pst = con.prepareStatement(SQL);
-            pst.setString(1, txtFecha.getText());
+            pst.setString(1, fechaFormateada);
             pst.setString(2, resultadoS);
             pst.setInt(3, idUser);
             pst.executeUpdate();
@@ -329,6 +371,7 @@ public class Agregar_control extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelResultRR;
     private javax.swing.JButton btnCalcularIMC1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -338,7 +381,7 @@ public class Agregar_control extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> sexo;
     private javax.swing.JTextField txtAlturaR;
-    private javax.swing.JTextField txtFecha;
+    private com.toedter.calendar.JDateChooser txtFecha;
     private javax.swing.JTextField txtPesoR;
     // End of variables declaration//GEN-END:variables
 }
